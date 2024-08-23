@@ -1,3 +1,7 @@
+"""
+example on how to run this file from the project root
+python src/inference.py --content_imgs td-recon/data_versions/raw/cmi_sample5/ --model_name clear2snowy --model_path ../checkpoints
+"""
 import os
 import argparse
 from PIL import Image
@@ -60,7 +64,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--content_imgs', type=str, required=True,
                         help='path to the input image')
-    parser.add_argument('--model_name', type=str, default=None,
+    parser.add_argument('--model_name', type=str, default='all',
                         help='name of the pretrained model to be used')
     parser.add_argument('--model_path', type=str, default=None,
                         help='path to a local model state dict to be used')
@@ -85,8 +89,13 @@ if __name__ == "__main__":
     content_images = glob.glob(args.content_imgs + '/**/*.png', recursive=True)
     random.shuffle(content_images)
 
-    models = ['clear_to_rainy', 'rainy_to_clear',
-              'night_to_day', 'day_to_night',
-              'clear2wet', 'clear2snowy']
+    # by default, it would run all the models
+    if args.model_name == 'all':
+        models = ['clear_to_rainy', 'rainy_to_clear',
+                  'night_to_day', 'day_to_night',
+                  'clear2wet', 'clear2snowy']
+    else:
+        models = [args.model_name]
+
     for model_name in models:
         inferece_model(model_name, content_images[:5], args)

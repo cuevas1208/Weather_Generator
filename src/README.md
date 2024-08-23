@@ -6,12 +6,19 @@ This repository contains the code to generate weather effects synthetically usin
     2. CycliGAN 
         'clear2rainy', 'clear2snowy'
 
-### Weather Effect Generation using Analytical Method
-CycleGAN does not
-use existing text-to-image models and, as a result, generates artifacts in the outputs,
-e.g., the sky regions in the day-to-night translation. In contrast, Instruct-pix2pix uses
-a large text-to-image model but does not use the unpaired dataset. So, the Instructpix2pix 
-outputs look unnatural and vastly different than the images in our datasets.
+# run sample code 
+```
+git clone git@github.com:cuevas1208/Weather_Generator.git
+
+cd Weather_Generator
+
+pip install -r requirements.txt
+
+python src/inference.py --content_imgs td-recon/data_versions/raw/cmi_sample5/ --model_name clear2snowy --model_path ../checkpoints
+
+# model_name all to run all the models 
+python src/inference.py --content_imgs td-recon/data_versions/raw/cmi_sample5/ --model_name all --model_path ../checkpoints
+```
 
 # Dataset
 ### 
